@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<link rel="icon" type="image/png" href="logo.png">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>PurpleOS</title>
+	<style>
+        /* --- estilos originales intactos --- */
+.center-main-button { position: fixed; top: 68%; left: 50%; transform: translate(-50%, -50%); z-index: 1000; }
+.main-btn { background: rgba(175,175,175,0.25); color:#fff; border:1.5px solid rgba(255,255,255,0.18); border-radius:999px; padding:0.9rem 2.8rem; font-size:1.2rem; cursor:pointer; backdrop-filter:blur(18px) saturate(180%); transition:0.2s; }
+.main-btn:hover { background:#c6bcf3; transform:scale(1.05); }
+
+
+/* Contador gigante */
+#countdownContainer {
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+font-size: 6rem;
+font-weight: bold;
+color: white;
+text-align: center;
+display: none;
+z-index: 5000;
+}
+
+    .center-main-button {
+    position: fixed;
+    top: 68%;             /* Ajusta si quieres moverlo arriba o abajo */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
+
+.main-btn {
+    background: rgba(175, 175, 175, 0.25);
+    color: #ffffff;
+    border: 1.5px solid rgba(255, 255, 255, 0.18);
+    border-radius: 999px; /* forma redondeada */
+    padding: 0.9rem 2.8rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    cursor: pointer;
+    backdrop-filter: blur(18px) saturate(180%) brightness(1.10);
+    -webkit-backdrop-filter: blur(18px) saturate(180%) brightness(1.10);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.25);
+    transition: background 0.2s, transform 0.2s;
+}
+
+.main-btn:hover {
+    background: #c6bcf3;
+    color: #ffffff;
+    transform: scale(1.05);
+}
+        /* Colores oscuros para navbar, modal y noticias */
+		/* .navbar glassmorphism igual que .blurred-box */
+		.modal-box {
+			background: rgba(24, 24, 24, 0.35) !important;
+			color: #fff !important;
+			border: 1.5px solid rgba(255, 255, 255, 0.25);
+			box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+			backdrop-filter: blur(24px) saturate(180%) brightness(1.15);
+			-webkit-backdrop-filter: blur(24px) saturate(180%) brightness(1.15);
+		}
+
+		.blurred-box {
+			background: rgba(24, 24, 24, 0.25) !important;
+			color: #fff !important;
+			border: 1.5px solid rgba(255, 255, 255, 0.18);
+			box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
+			backdrop-filter: blur(18px) saturate(180%) brightness(1.10);
+			-webkit-backdrop-filter: blur(18px) saturate(180%) brightness(1.10);
+		}
+
+		.modal-btn {
+			margin-top: 2rem;
+			background: #c6bcf3;
+			color: #fff;
+			border: none;
+			border-radius: 999px;
+			padding: 0.7rem 2.2rem;
+			font-size: 1.1rem;
+			font-weight: 500;
+			cursor: pointer;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
+			transition: background 0.2s;
+		}
+
+		.modal-btn:hover {
+			background: #c6bcf3;
+		}
+
+		.modal-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100vw;
+			height: 100vh;
+			background: rgba(0, 0, 0, 0.25);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			z-index: 2000;
+		}
+
+		.modal-box {
+			border-radius: 64px;
+			box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+			padding: 2.5rem 4rem;
+			font-size: 0.7rem;
+			font-weight: bold;
+			color: #fff;
+			text-align: center;
+			min-width: 200px;
+		}
+
+		.blurred-box {
+			border-radius: 64px;
+			box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
+			padding: 2rem 2.5rem;
+			max-width: 400px;
+			margin: 2rem 0 0 2rem;
+			display: inline-block;
+
+		}
+
+		.center-btn-container {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			z-index: 1100;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 100vw;
+			pointer-events: none;
+		}
+
+		.center-btn {
+			background: rgba(24, 24, 24, 0.25);
+			color: #fff;
+			border: 1.5px solid rgba(255, 255, 255, 0.18);
+			border-radius: 999px;
+			box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
+			padding: 0.7rem 2.5rem;
+			font-size: 1.2rem;
+			font-weight: 500;
+			cursor: pointer;
+			transition: background 0.2s, color 0.2s;
+			backdrop-filter: blur(18px) saturate(180%) brightness(1.10);
+			-webkit-backdrop-filter: blur(18px) saturate(180%) brightness(1.10);
+			pointer-events: auto;
+		}
+
+		.center-btn:hover {
+			background: #c6bcf3;
+			color: #ffffff;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+			font-family: Arial, sans-serif;
+			overflow: hidden;
+			height: 100%;
+		}
+
+		body {
+			position: relative;
+			min-height: 100vh;
+		}
+
+		.navbar {
+			position: fixed;
+			top: 24px;
+			left: 50%;
+			transform: translateX(-50%);
+			background: rgba(175, 175, 175, 0.25);
+			color: #ffffff;
+			display: flex;
+			align-items: center;
+			border-radius: 999px;
+			box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
+			padding: 0.5rem 0.1rem;
+			z-index: 1000;
+			min-width: 150px;
+			max-width: 90vw;
+			border: 1.5px solid rgba(255, 255, 255, 0.18);
+			backdrop-filter: blur(18px) saturate(180%) brightness(1.10);
+			-webkit-backdrop-filter: blur(18px) saturate(180%) brightness(1.10);
+		}
+
+		.navbar .logo {
+			display: none;
+		}
+
+		.nav-links {
+			display: flex;
+			gap: 1rem;
+			justify-content: center;
+			width: 100%;
+		}
+
+		.navbar a {
+			color: #ffffff;
+			text-decoration: none;
+			padding: 0.5rem 0.3rem;
+			border-radius: 1500px;
+			font-weight: 500;
+			transition: background 0.2s, color 0.2s;
+		}
+
+		.navbar a:hover {
+			background: #c6bcf3;
+			color: #ffffff;
+		}
+
+		.content {
+			margin-top: 80px;
+			padding: 2rem;
+		}
+
+		.content h1,
+		.content p {
+			letter-spacing: -1px;
+		}
+	</style>
+</head>
+<nav class="navbar">
+		<div class="nav-links">
+			<a href="#inicio" id="inicioLink">
+    <img src="./navbar/home.png" class="nav-icon">
+</a>
+
+<a href="#dispositivos" id="infoLink">
+    <img src="./navbar/devices.png" class="nav-icon">
+</a>
+
+<a href="#descargas" id="descargasLink">
+    <img src="./navbar/download.png" class="nav-icon">
+</a>
+		</div>
+	</nav>
+<body>
+    <audio id="bgmusic" src="./bgmusic/bgmusic.mp3" autoplay loop></audio>
+
+    <image src="./bgimages/background.png" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: -1; pointer-events: none;">
+ 
+<script>
+        const bgm = document.getElementById("bgmusic");
+
+        document.addEventListener("click", () => {
+            bgm.play().catch(e => console.log("Error al reproducir:", e));
+        }, { once: true });
+    </script>
+
+        <div class="center-main-button">
+    <button class="main-btn" id="DescubrirMás">Descubrir más</button>
+</div>
+
+<script>
+    
+</script>
+
+<script>
+    
+
+	// Botón para mostrar página en blanco pero con navbar fija
+	document.getElementById('DescubrirMás').addEventListener('click', function () {
+		// Oculta todo menos la navbar
+		document.querySelectorAll('body > *:not(nav)').forEach(function (el) {
+			el.style.display = 'none';
+		});
+		// Cambia el fondo a la imagen especificada
+		document.getElementById('inicioLink').addEventListener('click', function (e) {
+			e.preventDefault();
+
+			// Mostrar todos los elementos principales excepto la navbar
+			document.querySelectorAll('body > *:not(nav)').forEach(function (el) {
+				el.style.display = '';
+			});
+
+		});
+
+		document.body.style.background = "url('./bgimages/cleanbg.png') center center/cover no-repeat";
+	});
+
+</script>
+
+<div id="countdownContainer"></div>
+
+<script>
+// --- botón de la línea 244 modificado con el contador ---
+document.getElementById('DescubrirMás').addEventListener('click', function () {
+
+
+// Ocultar TODO excepto navbar (tu código ya estaba aquí)
+document.querySelectorAll('body > *:not(nav)').forEach(el => el.style.display = 'none');
+
+
+// Fondo limpio
+document.body.style.background = "url('./bgimages/cleanbg.png') center center/cover no-repeat";
+
+
+// Mostrar el contador gigante
+const countdown = document.getElementById("countdownContainer");
+countdown.style.display = "block";
+
+
+function updateCountdown() {
+const now = new Date();
+const target = new Date("2025-12-31T23:59:59");
+const diff = target - now;
+
+
+if (diff <= 0) {
+countdown.textContent = "¡Más informacion disponible!";
+return;
+}
+
+
+const days = Math.floor(diff / (1000*60*60*24));
+const hours = Math.floor((diff / (1000*60*60)) % 24);
+const mins = Math.floor((diff / (1000*60)) % 60);
+const secs = Math.floor((diff / 1000) % 60);
+
+
+countdown.textContent = `${days}d ${hours}h ${mins}m ${secs}s`;
+}
+
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+});
+</script>
