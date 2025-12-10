@@ -7,6 +7,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>PurpleOS</title>
 	<style>
+	@font-face {
+    font-family: "Poppins";
+    src: url("./font/Poppins-Bold.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
         /* --- estilos originales intactos --- */
 .center-main-button { position: fixed; top: 68%; left: 50%; transform: translate(-50%, -50%); z-index: 1000; }
 .main-btn { background: rgba(175,175,175,0.25); color:#fff; border:1.5px solid rgba(255,255,255,0.18); border-radius:999px; padding:0.9rem 2.8rem; font-size:1.2rem; cursor:pointer; backdrop-filter:blur(18px) saturate(180%); transition:0.2s; }
@@ -165,7 +172,7 @@ z-index: 5000;
 		body {
 			margin: 0;
 			padding: 0;
-			font-family: Arial, sans-serif;
+			font-family: "Poppins", Arial, sans-serif;
 			overflow: hidden;
 			height: 100%;
 		}
@@ -270,7 +277,7 @@ z-index: 5000;
 <script>
     
 
-	// Botón para mostrar página en blanco pero con navbar fija
+	// Pagina descubrir más
 	document.getElementById('DescubrirMás').addEventListener('click', function () {
 		// Oculta todo menos la navbar
 		document.querySelectorAll('body > *:not(nav)').forEach(function (el) {
@@ -304,7 +311,7 @@ document.querySelectorAll('body > *:not(nav)').forEach(el => el.style.display = 
 
 
 // Fondo limpio
-document.body.style.background = "url('./bgimages/cleanbg.png') center center/cover no-repeat";
+document.body.style.background = "url('./bgimages/moreinfobg.png') center center/cover no-repeat";
 
 
 // Mostrar el contador gigante
@@ -337,4 +344,54 @@ countdown.textContent = `${days}d ${hours}h ${mins}m ${secs}s`;
 updateCountdown();
 setInterval(updateCountdown, 1000);
 });
+</script>
+
+<script>
+    
+
+	// pagina dispositivos
+	document.getElementById('infoLink').addEventListener('click', function () {
+		// Oculta todo menos la navbar
+		document.querySelectorAll('body > *:not(nav)').forEach(function (el) {
+			el.style.display = 'none';
+		});
+		// Cambia el fondo a la imagen especificada
+		document.getElementById('inicioLink').addEventListener('click', function (e) {
+			e.preventDefault();
+
+			// Mostrar todos los elementos principales excepto la navbar
+			document.querySelectorAll('body > *:not(nav)').forEach(function (el) {
+				el.style.display = '';
+			});
+
+		});
+
+		document.body.style.background = "url('./bgimages/makebg.png') center center/cover no-repeat";
+	});
+
+</script>
+
+<script>
+    
+
+	// Botón para mostrar página en blanco pero con navbar fija
+	document.getElementById('descargasLink').addEventListener('click', function () {
+		// Oculta todo menos la navbar
+		document.querySelectorAll('body > *:not(nav)').forEach(function (el) {
+			el.style.display = 'none';
+		});
+		// Cambia el fondo a la imagen especificada
+		document.getElementById('inicioLink').addEventListener('click', function (e) {
+			e.preventDefault();
+
+			// Mostrar todos los elementos principales excepto la navbar
+			document.querySelectorAll('body > *:not(nav)').forEach(function (el) {
+				el.style.display = '';
+			});
+
+		});
+
+		document.body.style.background = "url('./bgimages/avaviblein2026bg.png') center center/cover no-repeat";
+	});
+
 </script>
